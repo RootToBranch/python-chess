@@ -7,17 +7,22 @@ from ast import literal_eval
 from random import randint
 
 client_sockets = []
+statusManage = {}
 
+def reset():
+    print("Variable Reset Start")
+    global statusManage, client_sockets
+    client_sockets = []
+    statusManage = {    
+        "status": 0,
+        "ready_array": [],
+        "user_count": 0,
+        "prev_selected_team": ""
+    }
 
+    print("Reset Completed")
 
-
-
-statusManage = {    
-    "status": 0,
-    "ready_array": [],
-    "user_count": 0,
-    "prev_selected_team": ""
-}
+reset()
 
 # 서버 IP와 포트 설정
 HOST = socket.gethostbyname(socket.gethostname())
@@ -112,6 +117,9 @@ def threaded(client_socket, addr):
     if client_socket in client_sockets:
         client_sockets.remove(client_socket)
         print('remove client list : ', len(client_sockets))
+
+        if len(client_sockets) == 0:
+            reset()
 
     client_socket.close()
 
