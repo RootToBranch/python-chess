@@ -322,7 +322,7 @@ class Game:
 
     
 
-    def setArea(self, obj):
+    def setArea(self, obj: "Pieces") -> None:
         global frame_game 
         Game.gameArea[obj.x][obj.y] = obj
         
